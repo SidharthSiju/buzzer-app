@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0f1220">
+  <title>Quiz Buzzer</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="player">
+<div class="wrap">
+
+  <!-- No QR code / no token -->
+  <section id="screen-noqr" class="card center hidden">
+    <div class="big-emoji">📷</div>
+    <h1>Scan the QR code</h1>
+    <p class="sub">Please scan the event QR code shown on the screen to enter the game.</p>
+  </section>
+
+  <!-- Enter name -->
+  <section id="screen-join" class="card hidden">
+    <h1>Join the game</h1>
+    <p class="sub">Enter your name to get your buzzer.</p>
+    <form id="joinForm" autocomplete="off">
+      <input id="nameInput" type="text" maxlength="40" placeholder="Your name" aria-label="Your name" required>
+      <button class="primary block" id="joinBtn" type="submit">Join</button>
+      <p class="error" id="joinError" role="alert"></p>
+    </form>
+  </section>
+
+  <!-- Game -->
+  <section id="screen-game" class="hidden">
+    <div class="topbar">
+      <strong id="meName"></strong>
+      <span id="roundStatus" class="status">Connecting…</span>
+    </div>
+
+    <div class="buzzer-stage">
+      <button id="buzzBtn" type="button" disabled>WAIT</button>
+      <div id="rankText" aria-live="polite"></div>
+    </div>
+
+    <div class="card">
+      <h2>Buzz order</h2>
+      <ol id="queueList" class="queue"></ol>
+      <div id="queueEmpty" class="empty">Nobody has buzzed yet.</div>
+    </div>
+  </section>
+
+  <!-- Ended -->
+  <section id="screen-ended" class="card center hidden">
+    <div class="big-emoji">👋</div>
+    <h1 id="endedTitle">Thanks for playing!</h1>
+    <p class="sub" id="endedText">The session has ended.</p>
+  </section>
+
+</div>
+
+<script src="/js/stomp.umd.min.js"></script>
+<script src="/js/player.js"></script>
+</body>
+</html>

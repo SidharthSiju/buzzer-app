@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Quiz Buzzer - Host</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<div class="wrap wide">
+
+  <!-- Login -->
+  <section id="screen-login" class="card hidden" style="max-width:420px;margin:60px auto">
+    <h1>Host login</h1>
+    <p class="sub">Enter the host key (the HOST_SECRET you set on the server).</p>
+    <form id="loginForm">
+      <input id="hostKeyInput" type="password" placeholder="Host key" autocomplete="current-password" required>
+      <button class="primary block" type="submit">Log in</button>
+      <p class="error" id="loginError" role="alert"></p>
+    </form>
+  </section>
+
+  <!-- Dashboard -->
+  <section id="screen-dash" class="hidden">
+    <div class="topbar">
+      <div>
+        <h1>Quiz Buzzer · Host</h1>
+        <span id="connStatus" class="status">Connecting…</span>
+        <span id="roundStatus" class="status">–</span>
+        <span id="keepAlive" class="status" title="Pings the server so it never goes to sleep while you are logged in">Keep-alive: off</span>
+      </div>
+      <button id="logoutBtn">Log out</button>
+    </div>
+
+    <div class="grid">
+      <!-- Left: QR -->
+      <div>
+        <div class="card" id="qrCard">
+          <h2>Scan to join</h2>
+          <div class="qr-box" id="qrBox"></div>
+          <div class="code" id="codeText">------</div>
+          <div class="joinurl" id="joinUrl"></div>
+          <div class="controls" style="margin-top:14px">
+            <button id="rotateBtn" title="Generate a new code/QR. Players already in stay in.">New QR code</button>
+          </div>
+        </div>
+
+        <div class="card hidden" id="endedCard">
+          <h2>Game ended</h2>
+          <p class="sub">Everyone has been logged out and the old QR code no longer works.</p>
+          <button class="primary block" id="newGameBtn">Start a new game</button>
+        </div>
+      </div>
+
+      <!-- Right: controls + results -->
+      <div>
+        <div class="card">
+          <h2>Round</h2>
+          <div class="controls">
+            <button class="ok" id="newRoundBtn">▶ New question (open buzzers)</button>
+            <button id="lockBtn">⏸ Lock buzzers</button>
+            <button class="danger" id="endBtn" style="margin-left:auto">End game &amp; log everyone out</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>Buzz order</h2>
+          <ol id="queueList" class="queue"></ol>
+          <div id="queueEmpty" class="empty">Nobody has buzzed yet.</div>
+        </div>
+
+        <div class="card">
+          <h2>Players (<span id="playerCount">0</span>)</h2>
+          <div id="playerList" class="players"></div>
+          <div id="playerEmpty" class="empty">Nobody has joined yet. Show the QR code!</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<script src="/js/stomp.umd.min.js"></script>
+<script src="/js/qrcode.js"></script>
+<script src="/js/host.js"></script>
+</body>
+</html>
